@@ -27,18 +27,18 @@ public class OrderEntity {
 	@Column(name = "ID")
 	private Long idOrder;
 	
-	@JsonFormat(pattern = "yyyy-MM-dd")
+	//@JsonFormat(pattern = "yyyy-MM-dd")
 	@Column(name = "FECHA")
 	private String orderDate;
 	
-	@ManyToOne
-	private ShopDto shop;
-	
-	@ManyToOne
-	private ClientEntity client = new ClientEntity();
-	
-	@ManyToMany(mappedBy = "orders")
-	private List<ProductEntity> products = new ArrayList<ProductEntity>();
+//	@ManyToOne
+//	private ShopDto shop;
+//	
+//	@ManyToOne
+//	private ClientEntity client = new ClientEntity();
+//	
+//	@ManyToMany(mappedBy = "orders")
+//	private List<ProductEntity> products = new ArrayList<ProductEntity>();
 	
 	
 	

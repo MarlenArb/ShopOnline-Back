@@ -1,24 +1,2 @@
-2020-06-22 12:55:41.220  INFO 14708 --- [main] com.shop.shop.ShopApplication            : Starting ShopApplication on DESKTOP-HDFGSDB with PID 14708 (C:\Proyectos_Atos\Proyecto_Spring\shop\target\classes started by a784410 in C:\Proyectos_Atos\Proyecto_Spring\shop)
-2020-06-22 12:55:41.225  INFO 14708 --- [main] com.shop.shop.ShopApplication            : No active profile set, falling back to default profiles: default
-2020-06-22 12:55:42.789  INFO 14708 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8090 (http)
-2020-06-22 12:55:42.802  INFO 14708 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
-2020-06-22 12:55:42.803  INFO 14708 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.36]
-2020-06-22 12:55:43.009  INFO 14708 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
-2020-06-22 12:55:43.010  INFO 14708 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1704 ms
-2020-06-22 12:55:43.249  INFO 14708 --- [main] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
-2020-06-22 12:55:43.481  INFO 14708 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8090 (http) with context path ''
-2020-06-22 12:55:43.490  INFO 14708 --- [main] com.shop.shop.ShopApplication            : Started ShopApplication in 3.205 seconds (JVM running for 8.161)
-2020-06-22 12:57:25.839  INFO 14708 --- [RMI TCP Connection(8)-127.0.0.1] inMXBeanRegistrar$SpringApplicationAdmin : Application shutdown requested.
-2020-06-22 12:57:28.621  INFO 14708 --- [RMI TCP Connection(8)-127.0.0.1] o.s.s.concurrent.ThreadPoolTaskExecutor  : Shutting down ExecutorService 'applicationTaskExecutor'
-2020-06-22 12:57:39.120  INFO 8800 --- [main] com.shop.shop.ShopApplication            : Starting ShopApplication on DESKTOP-HDFGSDB with PID 8800 (C:\Proyectos_Atos\Proyecto_Spring\shop\target\classes started by a784410 in C:\Proyectos_Atos\Proyecto_Spring\shop)
-2020-06-22 12:57:39.123  INFO 8800 --- [main] com.shop.shop.ShopApplication            : No active profile set, falling back to default profiles: default
-2020-06-22 12:57:40.490  INFO 8800 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8090 (http)
-2020-06-22 12:57:40.498  INFO 8800 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
-2020-06-22 12:57:40.498  INFO 8800 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.36]
-2020-06-22 12:57:40.616  INFO 8800 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
-2020-06-22 12:57:40.617  INFO 8800 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1447 ms
-2020-06-22 12:57:40.780  INFO 8800 --- [main] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
-2020-06-22 12:57:40.940  INFO 8800 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8090 (http) with context path ''
-2020-06-22 12:57:40.949  INFO 8800 --- [main] com.shop.shop.ShopApplication            : Started ShopApplication in 2.357 seconds (JVM running for 6.926)
-2020-06-22 13:43:09.329  INFO 8800 --- [RMI TCP Connection(52)-127.0.0.1] inMXBeanRegistrar$SpringApplicationAdmin : Application shutdown requested.
-2020-06-22 13:43:12.084  INFO 8800 --- [RMI TCP Connection(52)-127.0.0.1] o.s.s.concurrent.ThreadPoolTaskExecutor  : Shutting down ExecutorService 'applicationTaskExecutor'
+2020-06-22 15:51:45.500  INFO 19532 --- [task-1] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2020-06-22 15:51:45.514  INFO 19532 --- [task-1] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'

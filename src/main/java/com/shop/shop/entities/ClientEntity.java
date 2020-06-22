@@ -12,8 +12,6 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import com.shop.shop.enums.Enums;
-
 import lombok.Data;
 
 @Entity
@@ -38,7 +36,16 @@ public class ClientEntity {
 	@Column(name = "GENERO")
 	private String gender; //TODO: Mirar como pongo los enums en las entidades
 	
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "client")
-	private List<OrderEntity> orders = new ArrayList<OrderEntity>();
+	@Column(name = "PRUEBA")
+	private String prueba; 
+	
+	@Column(name = "PRUEBA2")
+	private String prueba2; 
+	
+	@Column(name = "PRUEBA3")
+	private String prueba3; 
+	
+//	@OneToMany(cascade = CascadeType.ALL, mappedBy = "client")
+//	private List<OrderEntity> orders = new ArrayList<OrderEntity>();
 
 }

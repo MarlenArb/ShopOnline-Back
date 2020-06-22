@@ -27,7 +27,7 @@ public class SupplierEntity {
 	@Column(name = "NOMBRE")
 	private String name;
 	
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "supplier")
-	private List<ProductEntity> products = new ArrayList<ProductEntity>();
+//	@OneToMany(cascade = CascadeType.ALL, mappedBy = "supplier")
+//	private List<ProductEntity> products = new ArrayList<ProductEntity>();
 	
 }
