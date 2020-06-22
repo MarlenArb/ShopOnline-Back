@@ -32,10 +32,10 @@ public class ProductEntity {
 	@Column(name = "DESCRIPCION")
 	private String description;
 
-//	@ManyToOne
-//	private SupplierEntity supplier = new SupplierEntity();
-//	
-//	@ManyToMany(cascade = CascadeType.ALL)
-//	private List<OrderEntity> orders = new ArrayList<OrderEntity>();
+	@ManyToOne
+	private SupplierEntity supplier = new SupplierEntity();
+	
+	@ManyToMany(cascade = CascadeType.ALL)
+	private List<OrderEntity> orders = new ArrayList<OrderEntity>();
 
 }

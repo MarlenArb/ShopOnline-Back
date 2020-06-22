@@ -45,7 +45,7 @@ public class ClientEntity {
 	@Column(name = "PRUEBA3")
 	private String prueba3; 
 	
-//	@OneToMany(cascade = CascadeType.ALL, mappedBy = "client")
-//	private List<OrderEntity> orders = new ArrayList<OrderEntity>();
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "client")
+	private List<OrderEntity> orders = new ArrayList<OrderEntity>();
 
 }
