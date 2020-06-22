@@ -12,5 +12,6 @@ public class ProductDto {
 	
 	private String description;
 
+	private SupplierDto supplier;
 
 }

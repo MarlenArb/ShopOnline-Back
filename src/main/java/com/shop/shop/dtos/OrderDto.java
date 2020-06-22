@@ -15,7 +15,10 @@ public class OrderDto {
 	@JsonFormat(pattern = "yyyy-MM-dd")
 	private String orderDate;
 	
+	private ClientDto client;
+	
+	private ShopDto shop;
+	
 	private List<ProductDto> products = new ArrayList<ProductDto>();
-	private List<ClientDto> clients = new ArrayList<ClientDto>();
 	
 }
