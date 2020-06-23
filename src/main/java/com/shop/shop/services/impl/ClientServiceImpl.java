@@ -12,7 +12,6 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-
 import com.shop.shop.converters.DtoToEntity;
 import com.shop.shop.converters.EntityToDto;
 import com.shop.shop.dtos.ClientDto;
@@ -85,9 +84,21 @@ public class ClientServiceImpl implements ClientService{
 	}
 
 	@Override
+	@Transactional
 	public ClientDto modifyClient(Long id, ClientDto client) {
-		// TODO Auto-generated method stub
-		return null;
+		ClientEntity c = clientRepository.findById(id).orElseThrow(() -> {
+			logger.warn(DataErrorMessages.CLIENT_NO_CONTENT);
+			throw new ClientNoContentException(DataErrorMessages.CLIENT_NO_CONTENT);
+		});
+		
+		c.setClientName(client.getClientName());
+		c.setAge(client.getAge());
+		c.setDirection(client.getDirection());
+		c.setGender(client.getGender().toString());
+		
+		//TODO: No esta implementado la modificacion de pedidos desde clientes, sino desde pedidos
+		clientRepository.save(c);
+		return client;
 	}
 
 	@Override

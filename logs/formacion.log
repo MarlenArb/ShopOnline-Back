@@ -1,4 +1,1 @@
-2020-06-23 11:52:11.828  INFO 24128 --- [task-1] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
-2020-06-23 11:52:11.909  INFO 24128 --- [task-1] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
-2020-06-23 11:52:12.429  INFO 24128 --- [main] DeferredRepositoryInitializationListener : Spring Data repositories initialized!
-2020-06-23 11:52:12.443  INFO 24128 --- [main] com.shop.shop.ShopApplication            : Started ShopApplication in 5.581 seconds (JVM running for 10.754)
+2020-06-23 12:11:29.911  INFO 24520 --- [http-nio-8090-exec-2] o.s.web.servlet.DispatcherServlet        : Completed initialization in 17 ms

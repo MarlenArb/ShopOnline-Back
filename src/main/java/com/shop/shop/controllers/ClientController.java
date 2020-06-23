@@ -22,7 +22,6 @@ import com.shop.shop.services.ClientService;
 @RequestMapping("/client")
 public class ClientController {
 	
-
 	@Autowired
 	private ClientService clientService;
 	
