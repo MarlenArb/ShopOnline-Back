@@ -3,10 +3,12 @@ package com.shop.shop.services.impl;
 import java.util.List;
 
 import org.springframework.data.domain.Page;
+import org.springframework.stereotype.Service;
 
 import com.shop.shop.dtos.ClientDto;
 import com.shop.shop.services.ClientService;
 
+@Service
 public class ClientServiceImpl implements ClientService{
 
 	@Override

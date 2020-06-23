@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service;
 
 import com.shop.shop.dtos.ClientDto;
 
-@Service
 public interface ClientService {
 
 	public ClientDto getClient(Long id);

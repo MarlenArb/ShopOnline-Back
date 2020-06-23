@@ -1,6 +1,9 @@
 package com.shop.shop.dtos;
 
 
+import java.util.ArrayList;
+import java.util.List;
+
 import lombok.Data;
 
 @Data
@@ -13,5 +16,7 @@ public class ProductDto {
 	private String description;
 
 	private SupplierDto supplier;
+	
+	private List<OrderDto> orders = new ArrayList<OrderDto>();
 
 }

@@ -22,7 +22,7 @@ public class SupplierEntity {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO, generator = "SEQ_ID_SHOPS")
 	@Column(name = "ID")
-	private Long idSuplier;
+	private Long idSupplier;
 	
 	@Column(name = "NOMBRE")
 	private String name;

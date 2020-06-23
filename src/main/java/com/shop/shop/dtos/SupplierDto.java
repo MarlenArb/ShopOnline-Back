@@ -8,7 +8,7 @@ import lombok.Data;
 @Data
 public class SupplierDto {
 	
-	private Long idSuplier;
+	private Long idSupplier;
 	
 	private String name;
 	

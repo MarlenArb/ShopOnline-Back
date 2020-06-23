@@ -5,6 +5,9 @@ import java.util.List;
 
 import com.shop.shop.enums.Enums;
 
+import lombok.Data;
+
+@Data
 public class ClientDto {
 
 	private Long idClient;

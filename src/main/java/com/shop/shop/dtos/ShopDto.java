@@ -13,5 +13,5 @@ public class ShopDto {
 
 	private String shopName;
 	
-	private List<OrderDto> characters = new ArrayList<OrderDto>();
+	private List<OrderDto> orders = new ArrayList<OrderDto>();
 }
