@@ -83,6 +83,7 @@ public class DtoToEntityImpl implements DtoToEntity{
 		if (productDto.getIdProduct() != null) {
 			productEntity.setIdProduct(productDto.getIdProduct());
 		}
+		productEntity.setProductName(productDto.getProductName());
 		productEntity.setDescription(productDto.getDescription());
 		productEntity.setPrice(productDto.getPrice());
 		productEntity.setOrders(convertOrders(productDto.getOrders()));

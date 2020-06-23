@@ -26,6 +26,9 @@ public class ProductEntity {
 	@Column(name = "ID")
 	private Long idProduct;
 	
+	@Column(name = "NOMBRE")
+	private String productName;
+	
 	@Column(name = "PRECIO")
 	private Double price;
 	

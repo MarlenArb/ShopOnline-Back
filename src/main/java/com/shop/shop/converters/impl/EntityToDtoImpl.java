@@ -76,6 +76,7 @@ public class EntityToDtoImpl implements EntityToDto{
 	public ProductDto convertProduct(ProductEntity productEntity) {
 		ProductDto productDto = new ProductDto();
 		productDto.setIdProduct(productEntity.getIdProduct());
+		productDto.setProductName(productEntity.getProductName());
 		productDto.setDescription(productEntity.getDescription());
 		productDto.setPrice(productEntity.getPrice());
 		productDto.setSupplier(convertSupplier(productEntity.getSupplier()));
