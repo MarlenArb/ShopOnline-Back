@@ -12,6 +12,7 @@ public class ShopDto {
 	private Long idShop;
 
 	private String shopName;
+	
 	private String CIF;
 	
 	private List<OrderDto> orders = new ArrayList<OrderDto>();
