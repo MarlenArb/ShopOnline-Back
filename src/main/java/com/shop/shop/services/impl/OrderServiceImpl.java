@@ -14,9 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.shop.shop.converters.DtoToEntity;
 import com.shop.shop.converters.EntityToDto;
-import com.shop.shop.dtos.ClientDto;
 import com.shop.shop.dtos.OrderDto;
-import com.shop.shop.dtos.ProductDto;
 import com.shop.shop.entities.ClientEntity;
 import com.shop.shop.entities.OrderEntity;
 import com.shop.shop.entities.ProductEntity;

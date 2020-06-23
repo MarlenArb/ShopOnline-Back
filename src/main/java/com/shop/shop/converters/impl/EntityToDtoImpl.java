@@ -60,6 +60,7 @@ public class EntityToDtoImpl implements EntityToDto{
 		shopDto.setIdShop(shopEntity.getIdShop());
 		shopDto.setShopName(shopEntity.getShopName());
 		shopDto.setOrders(convertOrders(shopEntity.getOrders()));
+		shopDto.setCIF(shopEntity.getCIF());
 		return shopDto;
 	}
 	

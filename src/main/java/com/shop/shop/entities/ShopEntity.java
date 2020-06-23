@@ -27,6 +27,9 @@ public class ShopEntity {
 	@Column(name = "NOMBRE")
 	private String shopName;
 	
+	@Column(name = "CIF")
+	private String CIF;
+	
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "shop")
 	private List<OrderEntity> orders = new ArrayList<OrderEntity>();
 
