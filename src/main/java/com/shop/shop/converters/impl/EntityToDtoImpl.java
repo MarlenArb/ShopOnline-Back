@@ -29,7 +29,7 @@ public class EntityToDtoImpl implements EntityToDto{
 		clientDto.setAge(clientEntity.getAge());
 		clientDto.setDirection(clientEntity.getDirection());
 		clientDto.setGender(Enums.gender.valueOf(clientEntity.getGender()));
-		clientDto.setOrders(convertOrders(clientEntity.getOrders()));
+		//clientDto.setOrders(convertOrders(clientEntity.getOrders()));
 		return clientDto;
 	}
 	
@@ -59,7 +59,7 @@ public class EntityToDtoImpl implements EntityToDto{
 		ShopDto shopDto = new ShopDto();
 		shopDto.setIdShop(shopEntity.getIdShop());
 		shopDto.setShopName(shopEntity.getShopName());
-		shopDto.setOrders(convertOrders(shopEntity.getOrders()));
+		//shopDto.setOrders(convertOrders(shopEntity.getOrders()));
 		shopDto.setCIF(shopEntity.getCIF());
 		return shopDto;
 	}
@@ -80,7 +80,7 @@ public class EntityToDtoImpl implements EntityToDto{
 		productDto.setProductName(productEntity.getProductName());
 		productDto.setDescription(productEntity.getDescription());
 		productDto.setPrice(productEntity.getPrice());
-		productDto.setSupplier(convertSupplier(productEntity.getSupplier()));
+		productDto.setSupplier(convertSupplier(productEntity.getSupplier())); //TODO: Error
 		productDto.setOrders(convertOrders(productEntity.getOrders()));
 		return productDto;
 	}
@@ -90,7 +90,7 @@ public class EntityToDtoImpl implements EntityToDto{
 		SupplierDto supplierDto = new SupplierDto();
 		supplierDto.setIdSupplier(supplierEntity.getIdSupplier());
 		supplierDto.setName(supplierEntity.getName());
-		supplierDto.setProducts(convertProducts(supplierEntity.getProducts()));
+		//supplierDto.setProducts(convertProducts(supplierEntity.getProducts()));
 		return supplierDto;
 	}
 

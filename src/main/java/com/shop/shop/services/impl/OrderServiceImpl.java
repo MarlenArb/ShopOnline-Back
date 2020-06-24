@@ -72,8 +72,8 @@ public class OrderServiceImpl implements OrderService {
 			throw new ClientNoContentException(DataErrorMessages.CLIENT_NO_CONTENT);
 		});
 		
-		c.getOrders().add(order);
-		clientRepository.save(c);
+		//c.getOrders().add(order);
+		//clientRepository.save(c);
 		
 		//Añadimos a la tienda el nuevo pedido
 		ShopEntity s = shopRepository.findById(orderDto.getShop().getIdShop()).orElseThrow(() -> {
@@ -81,8 +81,8 @@ public class OrderServiceImpl implements OrderService {
 			throw new ShopNoContentException(DataErrorMessages.SHOP_NO_CONTENT);
 		});
 		
-		s.getOrders().add(order);
-		shopRepository.save(s);
+		//s.getOrders().add(order);
+		//shopRepository.save(s);
 		
 		//Añadimos a los productos los pedidos en los que aparecen
 		List <ProductEntity> products = new ArrayList<ProductEntity>();
@@ -93,8 +93,8 @@ public class OrderServiceImpl implements OrderService {
 				throw new ProductNoContentException(DataErrorMessages.PRODUCT_NO_CONTENT);
 			});
 			
-			product.getOrders().add(order);
-			productRepository.save(product);
+			//product.getOrders().add(order);
+			//productRepository.save(product);
 			
 		}
 

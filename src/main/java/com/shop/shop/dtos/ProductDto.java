@@ -17,7 +17,7 @@ public class ProductDto {
 	
 	private String description;
 
-	private SupplierDto supplier;
+	private SupplierDto supplier = new SupplierDto();
 	
 	private List<OrderDto> orders = new ArrayList<OrderDto>();
 
