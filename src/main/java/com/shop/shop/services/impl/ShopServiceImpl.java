@@ -78,7 +78,6 @@ public class ShopServiceImpl implements ShopService{
 		}
 		
 		shopRepository.delete(s);
-		
 	}
 
 	@Override

@@ -16,58 +16,59 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.shop.shop.dtos.OrderDto;
-import com.shop.shop.services.OrderService;
+import com.shop.shop.dtos.ProductDto;
+import com.shop.shop.services.ProductService;
+
 
 @RestController
-@RequestMapping("/order")
+@RequestMapping("/product")
 @CrossOrigin(origins = "*", methods= {RequestMethod.GET,RequestMethod.POST,  RequestMethod.DELETE, RequestMethod.PUT})
-public class OrderController {
+public class ProductController {
 	
 	@Autowired
-	private OrderService orderService;
+	private ProductService productService;
 	
 	//GET
 	@GetMapping("/{id}")
-	public OrderDto getOrder(@Validated @PathVariable Long id) {
-		return orderService.getOrder(id);
+	public ProductDto getProduct(@Validated @PathVariable Long id) {
+		return productService.getProduct(id);
 	}
 	
 
 	//POST
 	@PostMapping
-	public void addOrder(@Validated @RequestBody OrderDto orderDto) {
-		orderService.addOrder(orderDto);
+	public void addProduct(@Validated @RequestBody ProductDto productDto) {
+		productService.addProduct(productDto);
 	};
 
 	//DELETE
 	@DeleteMapping("/{id}")
-	public void deleteOrder(@PathVariable Long id) {
-		orderService.deleteOrder(id);
+	public void deleteProduct(@PathVariable Long id) {
+		productService.deleteProduct(id);
 	}
 
 	//GET
 	@GetMapping
-	public List<OrderDto> getOrders() {
-		return orderService.getOrders();
+	public List<ProductDto> getProducts() {
+		return productService.getProducts();
 	}
 
 	//PUT
 	@PutMapping("/{id}")
-	public OrderDto modifyOrder(@Validated @PathVariable Long id, @Validated @RequestBody OrderDto order) {
-		return orderService.modifyOrder(id, order);
+	public ProductDto modifyProduct(@Validated @PathVariable Long id, @Validated @RequestBody ProductDto product) {
+		return productService.modifyProduct(id, product);
 	}
 	
 	//GET
 	@GetMapping("/page/{page}")
-	public Page<OrderDto> getOrdersPerPage(@PathVariable Integer page) {
-		return orderService.getOrdersPerPage(page);
+	public Page<ProductDto> getProductsPerPage(@PathVariable Integer page) {
+		return productService.getProductsPerPage(page);
 	}
 
 	//GET
-	@GetMapping("/page/*/{orderName}")
-	public List<OrderDto> getOrderbyRef(@PathVariable String ref) {
-		return orderService.getOrdertbyRef(ref);
+	@GetMapping("/page/*/{productName}")
+	public List<ProductDto> getProductbyName(@PathVariable String productName) {
+		return productService.getProductbyName(productName);
 	}
 
 }
