@@ -65,23 +65,8 @@ public class ClientServiceImpl implements ClientService{
 			throw new ClientNoContentException(DataErrorMessages.CLIENT_NO_CONTENT);
 		});
 		
-		System.out.println("----------------------------------------------------------------");
-		System.out.println(id);
-		System.out.println(c.toString());
-//		//TODO: Puede generar error si es nulo los pedidos del cliente?
-//		if(c.getOrders() != null) {
-//			for (OrderEntity o : c.getOrders()) {
-//				orderRepository.delete(o);
-//			}
-//		}
-		
-		
-//		for (OrderEntity o : c.getOrders()) {
-//			orderService.deleteOrder((o.getIdOrder()));
-//		}
-//		
-//
-//		clientRepository.delete(c);
+		clientRepository.save(c);
+		clientRepository.delete(c);
 	}
 
 	@Override
