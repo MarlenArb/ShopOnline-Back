@@ -13,11 +13,16 @@ import org.springframework.stereotype.Service;
 
 import com.shop.shop.converters.DtoToEntity;
 import com.shop.shop.converters.EntityToDto;
+import com.shop.shop.dtos.OrderDto;
 import com.shop.shop.dtos.ProductDto;
+import com.shop.shop.entities.OrderEntity;
 import com.shop.shop.entities.ProductEntity;
+import com.shop.shop.entities.ShopEntity;
 import com.shop.shop.entities.SupplierEntity;
 import com.shop.shop.exceptions.DataErrorMessages;
+import com.shop.shop.exceptions.OrderNoContentException;
 import com.shop.shop.exceptions.ProductNoContentException;
+import com.shop.shop.exceptions.ShopNoContentException;
 import com.shop.shop.exceptions.SupplierNoContentException;
 import com.shop.shop.repositories.ClientRepositoy;
 import com.shop.shop.repositories.OrderRepository;
@@ -62,16 +67,28 @@ public class ProductServiceImpl implements ProductService{
 
 	@Override
 	public void addProduct(ProductDto productDto) {
-		SupplierEntity supplier = supplierRepository.findById(productDto.getSupplier().getIdSupplier()).orElseThrow(() -> {
+		ProductEntity p = dte.convertProduct(productDto);
+				
+		SupplierEntity s = supplierRepository.findById(productDto.getSupplier().getIdSupplier()).orElseThrow(() -> {
 			logger.warn(DataErrorMessages.SUPPLIER_NO_CONTENT);
 			throw new SupplierNoContentException(DataErrorMessages.SUPPLIER_NO_CONTENT);
 		});
 		
-		//Le añado el producto al proveedor
-		//supplier.getProducts().add(dte.convertProduct(productDto));
-		//supplierRepository.save(supplier);
-		//Guardo el producto en la base de datos
-		productRepository.save(dte.convertProduct(productDto));
+		s.getProducts().add(p);
+		
+		List <OrderEntity> orders = new ArrayList<OrderEntity>();
+		for (OrderDto order : productDto.getOrders()) {
+			OrderEntity o = orderRepository.findById(order.getIdOrder()).orElseThrow(() -> {
+				logger.warn(DataErrorMessages.ORDER_NO_CONTENT);
+				throw new OrderNoContentException(DataErrorMessages.ORDER_NO_CONTENT);
+			});
+			orders.add(o);
+			o.getProducts().add(p);
+		}
+		p.setOrders(orders);
+		
+		
+		productRepository.save(p);
 		
 	}
 
@@ -82,18 +99,29 @@ public class ProductServiceImpl implements ProductService{
 			throw new ProductNoContentException(DataErrorMessages.PRODUCT_NO_CONTENT);
 		});
 		
-		//Borro el pedido de la lista de pedidos del proveedor
-		SupplierEntity supplier = supplierRepository.findById(p.getSupplier().getIdSupplier()).orElseThrow(() -> {
+		
+		SupplierEntity oldSupplier = supplierRepository.findById(p.getSupplier().getIdSupplier()).orElseThrow(() -> {
 			logger.warn(DataErrorMessages.SUPPLIER_NO_CONTENT);
 			throw new SupplierNoContentException(DataErrorMessages.SUPPLIER_NO_CONTENT);
 		});
 		
-		supplier.getProducts().remove(p);
-		supplierRepository.save(supplier);//TODO: Revisar si es necesario guardar despues del remove product
+		oldSupplier.getProducts().remove(p);
+		
+
+		
+		//Remove Old product in orders
+		for (OrderEntity o : p.getOrders()) {
+			o.getProducts().remove(p);
+		}
+		p.getOrders().clear();
+		
+
+		
+		
+		//productRepository.save(p);
 		
 		productRepository.delete(p);
 		
-		//TODO: NO borro los pedidos existentes porque son pedidos realizados en el momento que si estaban disponibles los productos
 	}
 
 	@Override
@@ -106,31 +134,51 @@ public class ProductServiceImpl implements ProductService{
 	}
 
 	@Override
-	public ProductDto modifyProduct(Long id, ProductDto product) {
+	public ProductDto modifyProduct(Long id, ProductDto productDto) {
 		ProductEntity p = productRepository.findById(id).orElseThrow(() -> {
 			logger.warn(DataErrorMessages.PRODUCT_NO_CONTENT);
 			throw new ProductNoContentException(DataErrorMessages.PRODUCT_NO_CONTENT);
 		});
 		
-		p.setDescription(product.getDescription());
-		p.setPrice(product.getPrice());
-		p.setProductName(product.getProductName());
+		p.setProductName(productDto.getProductName());
+		p.setDescription(productDto.getDescription());
+		p.setPrice(productDto.getPrice());
 		
-		SupplierEntity s = supplierRepository.findById(id).orElseThrow(() -> {
+		SupplierEntity oldSupplier = supplierRepository.findById(p.getSupplier().getIdSupplier()).orElseThrow(() -> {
 			logger.warn(DataErrorMessages.SUPPLIER_NO_CONTENT);
 			throw new SupplierNoContentException(DataErrorMessages.SUPPLIER_NO_CONTENT);
 		});
 		
-		s.getProducts().remove(p);
-		s.getProducts().add(p);
-		supplierRepository.save(s);
+		oldSupplier.getProducts().remove(p);
+		
+		SupplierEntity newSupplier = supplierRepository.findById(productDto.getSupplier().getIdSupplier()).orElseThrow(() -> {
+			logger.warn(DataErrorMessages.SUPPLIER_NO_CONTENT);
+			throw new SupplierNoContentException(DataErrorMessages.SUPPLIER_NO_CONTENT);
+		});
+		
+		newSupplier.getProducts().add(p);
+		
+		//Remove Old product in orders
+		for (OrderEntity o : p.getOrders()) {
+			o.getProducts().remove(p);
+		}
+		p.getOrders().clear();
+		
+		//Ad new products in orders
+		List <OrderEntity> orders = new ArrayList<OrderEntity>();
+		for (OrderDto order : productDto.getOrders()) {
+			OrderEntity o = orderRepository.findById(order.getIdOrder()).orElseThrow(() -> {
+				logger.warn(DataErrorMessages.ORDER_NO_CONTENT);
+				throw new OrderNoContentException(DataErrorMessages.ORDER_NO_CONTENT);
+			});
+			orders.add(o);
+			o.getProducts().add(p);
+		}
+		p.setOrders(orders);
 		
 		
-		p.setSupplier(dte.convertSupplier(product.getSupplier()));
 		productRepository.save(p);
-		
-		//No modifico el nombre de los productos que se encuentren en pedidos anteriormente hechos
-		return product;
+		return productDto;
 	}
 
 	@Override

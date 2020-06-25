@@ -39,6 +39,9 @@ public class ClientServiceImpl implements ClientService{
 	
 	@Autowired
 	OrderRepository orderRepository;
+	
+	@Autowired
+	OrderServiceImpl orderService;
 
 	@Override
 	public ClientDto getClient(Long id) {
@@ -61,16 +64,24 @@ public class ClientServiceImpl implements ClientService{
 			logger.warn(DataErrorMessages.CLIENT_NO_CONTENT);
 			throw new ClientNoContentException(DataErrorMessages.CLIENT_NO_CONTENT);
 		});
-
-		//TODO: Puede generar error si es nulo los pedidos del cliente?
-		if(c.getOrders() != null) {
-			for (OrderEntity o : c.getOrders()) {
-				orderRepository.delete(o);
-			}
-		}
-
-		clientRepository.delete(c);
 		
+		System.out.println("----------------------------------------------------------------");
+		System.out.println(id);
+		System.out.println(c.toString());
+//		//TODO: Puede generar error si es nulo los pedidos del cliente?
+//		if(c.getOrders() != null) {
+//			for (OrderEntity o : c.getOrders()) {
+//				orderRepository.delete(o);
+//			}
+//		}
+		
+		
+//		for (OrderEntity o : c.getOrders()) {
+//			orderService.deleteOrder((o.getIdOrder()));
+//		}
+//		
+//
+//		clientRepository.delete(c);
 	}
 
 	@Override
@@ -129,5 +140,6 @@ public class ClientServiceImpl implements ClientService{
 		}
 		return matchingClients;
 	}
+	
 
 }
