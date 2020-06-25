@@ -74,7 +74,6 @@ public class OrderServiceImpl implements OrderService {
 		});
 		
 		c.getOrders().add(order);
-		//clientRepository.save(c);
 		
 		//Añadimos a la tienda el nuevo pedido
 		ShopEntity s = shopRepository.findById(orderDto.getShop().getIdShop()).orElseThrow(() -> {
@@ -83,7 +82,6 @@ public class OrderServiceImpl implements OrderService {
 		});
 		
 		s.getOrders().add(order);
-		//shopRepository.save(s);
 		
 		//Añadimos a los productos los pedidos en los que aparecen
 		List <ProductEntity> products = new ArrayList<ProductEntity>();
@@ -96,9 +94,7 @@ public class OrderServiceImpl implements OrderService {
 			});
 			
 			products.add(p);
-			
 			p.getOrders().add(order);
-			//productRepository.save(product);
 			
 		}
 		order.setProducts(products);
@@ -123,7 +119,7 @@ public class OrderServiceImpl implements OrderService {
 		});
 		
 		c.getOrders().remove(order);
-		clientRepository.save(c);
+		//clientRepository.save(c);
 		
 		//Borramos el pedido de la tienda
 		ShopEntity s = shopRepository.findById(order.getShop().getIdShop()).orElseThrow(() -> {
@@ -132,19 +128,17 @@ public class OrderServiceImpl implements OrderService {
 		});
 		
 		s.getOrders().remove(order);
-		shopRepository.save(s);
+		//shopRepository.save(s);
 		
 		//Borramos el pedido de los productos asociadosa él
-		List <ProductEntity> products = new ArrayList<ProductEntity>();
-		products = order.getProducts();
-		for (ProductEntity product : products) {
+		for (ProductEntity product : order.getProducts()) {
 			productRepository.findById(product.getIdProduct()).orElseThrow(() -> {
 				logger.warn(DataErrorMessages.PRODUCT_NO_CONTENT);
 				throw new ProductNoContentException(DataErrorMessages.PRODUCT_NO_CONTENT);
 			});
 			
 			product.getOrders().remove(order);
-			productRepository.save(product);
+			productRepository.save(product); //TODO: no se si va aqui
 		}
 		
 		//Borramos el pedido en la bbdd
@@ -163,37 +157,77 @@ public class OrderServiceImpl implements OrderService {
 	}
 
 	@Override
-	public OrderDto modifyOrder(Long id, OrderDto order) {
-//		   OrderEntity o = orderRepository.findById(id).orElseThrow(() -> {
-//			logger.warn(DataErrorMessages.ORDER_NO_CONTENT);
-//			throw new OrderNoContentException(DataErrorMessages.ORDER_NO_CONTENT);
-//		});
-//		
-//		
-//		o.setOrderDate(order.getOrderDate());
-//		//Borramos los anteriores productos asociados y los volvemos a añadir (tanto por el lado del porducto como del pedido)
-//		
-//		//Borramos el pedido en los productos que tenia asociados
-//		for(ProductEntity productEntity: o.getProducts()) {
-//			productEntity.getOrders().remove(o);
-//		}
-//		
-//		//Borramos la lista de productos que tenia el pedido anteriormente y añadimos los nuevos
-//		o.getProducts().clear();
-//		for (ProductDto product : order.getProducts()) {
-//			ProductEntity p = dte.convertProduct(product);
-//			o.getProducts().add(p);
-//			p.getOrders().add(dte.convertOrder(order));
-//			productRepository.save(p);
-//			
-//		}
-//		
-//		
-//		//TODO: Aun no esta acabada la impl pero me parece mejor idea borrar el pedido y volver a añadirlo, posibles confictos por nuevo ID
-//		orderRepository.save(o);
-		deleteOrder(id);
-		addOrder(order);
-		return order;
+	public OrderDto modifyOrder(Long id, OrderDto orderDto) { //Cuidado le cambie el nombre al orderDto antes order
+		//-------------------------------------------Buscamos la entidad del pedido para poder trabajar----------------------------------------
+		OrderEntity order = orderRepository.findById(orderDto.getIdOrder()).orElseThrow(() -> {
+			logger.warn(DataErrorMessages.ORDER_NO_CONTENT);
+			throw new OrderNoContentException(DataErrorMessages.ORDER_NO_CONTENT);
+		});
+		
+		//-----------------------------------------Primero Seteamos la entidad con los nuevos valores-------------------------------------------
+		order.setOrderDate(orderDto.getOrderDate());
+		
+		//----------------------------------------------Cliente Asociado-------------------------------------------------------------------------
+		//1. Buscamos la ENTIDAD cliente asociada anterior
+		ClientEntity oldClient = clientRepository.findById(order.getClient().getIdClient()).orElseThrow(() -> {
+			logger.warn(DataErrorMessages.CLIENT_NO_CONTENT);
+			throw new ClientNoContentException(DataErrorMessages.CLIENT_NO_CONTENT);
+		});
+		
+		ClientEntity newClient = clientRepository.findById(orderDto.getClient().getIdClient()).orElseThrow(() -> {
+			logger.warn(DataErrorMessages.CLIENT_NO_CONTENT);
+			throw new ClientNoContentException(DataErrorMessages.CLIENT_NO_CONTENT);
+		});
+		
+		//2.Borramos el pedido de la entidad cliente
+		oldClient.getOrders().remove(order);
+		//3.Añadimos el nuevo pedido al cliente y viceversa
+		newClient.getOrders().add(order);
+		order.setClient(newClient);
+		
+		//----------------------------------------------Tienda Asociada-------------------------------------------------------------------------
+		//1. Buscamos la ENTIDAD tienda asociada anterior
+		ShopEntity oldShop = shopRepository.findById(order.getShop().getIdShop()).orElseThrow(() -> {
+			logger.warn(DataErrorMessages.SHOP_NO_CONTENT);
+			throw new ShopNoContentException(DataErrorMessages.SHOP_NO_CONTENT);
+		});
+		
+		ShopEntity newShop = shopRepository.findById(orderDto.getShop().getIdShop()).orElseThrow(() -> {
+			logger.warn(DataErrorMessages.SHOP_NO_CONTENT);
+			throw new ShopNoContentException(DataErrorMessages.SHOP_NO_CONTENT);
+		});
+		
+		//2.Borramos el pedido de la entidad tienda anterior
+		oldShop.getOrders().remove(order);
+		//3.Añadimos el nuevo pedido a la nueva tienda asignada y viceversa
+		newShop.getOrders().add(order);
+		order.setShop(newShop);
+		
+		//----------------------------------------------Productos Asociados-------------------------------------------------------------------------
+		//1. Borramos las ENTIDADES producto asociadas anteriormente
+		for (ProductEntity p : order.getProducts()) {
+			p.getOrders().remove(order);
+		}
+		order.getProducts().clear();
+		
+		//2.Añadimos las nuevas
+		List <ProductEntity> newProducts = new ArrayList<ProductEntity>();
+		for (ProductDto product : orderDto.getProducts()) {
+			ProductEntity p = productRepository.findById(product.getIdProduct()).orElseThrow(() -> {
+				logger.warn(DataErrorMessages.PRODUCT_NO_CONTENT);
+				throw new ProductNoContentException(DataErrorMessages.PRODUCT_NO_CONTENT);
+			});
+		
+			newProducts.add(p);
+			p.getOrders().add(order);
+			
+		}
+		order.setProducts(newProducts);
+		
+		
+		//Guardamos el pedido en la bbdd
+		orderRepository.save(order);
+		return orderDto;
 			
 	}
 
