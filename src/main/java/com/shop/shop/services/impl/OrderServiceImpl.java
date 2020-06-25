@@ -15,6 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.shop.shop.converters.DtoToEntity;
 import com.shop.shop.converters.EntityToDto;
 import com.shop.shop.dtos.OrderDto;
+import com.shop.shop.dtos.ProductDto;
 import com.shop.shop.entities.ClientEntity;
 import com.shop.shop.entities.OrderEntity;
 import com.shop.shop.entities.ProductEntity;
@@ -72,7 +73,7 @@ public class OrderServiceImpl implements OrderService {
 			throw new ClientNoContentException(DataErrorMessages.CLIENT_NO_CONTENT);
 		});
 		
-		//c.getOrders().add(order);
+		c.getOrders().add(order);
 		//clientRepository.save(c);
 		
 		//Añadimos a la tienda el nuevo pedido
@@ -81,27 +82,30 @@ public class OrderServiceImpl implements OrderService {
 			throw new ShopNoContentException(DataErrorMessages.SHOP_NO_CONTENT);
 		});
 		
-		//s.getOrders().add(order);
+		s.getOrders().add(order);
 		//shopRepository.save(s);
 		
 		//Añadimos a los productos los pedidos en los que aparecen
 		List <ProductEntity> products = new ArrayList<ProductEntity>();
-		products = order.getProducts();
-		for (ProductEntity product : products) {
-			productRepository.findById(product.getIdProduct()).orElseThrow(() -> {
+		//products = order.getProducts();
+		for (ProductDto product : orderDto.getProducts()) {
+			ProductEntity p = productRepository.findById(product.getIdProduct()).orElseThrow(() -> {
 				logger.warn(DataErrorMessages.PRODUCT_NO_CONTENT);
 				throw new ProductNoContentException(DataErrorMessages.PRODUCT_NO_CONTENT);
+				
 			});
 			
-			//product.getOrders().add(order);
+			products.add(p);
+			
+			p.getOrders().add(order);
 			//productRepository.save(product);
 			
 		}
-
+		order.setProducts(products);
 		
 		
 		//Guardamos el pedido en la bbdd
-		orderRepository.save(dte.convertOrder(orderDto));
+		orderRepository.save(order);
 	}
 
 	@Override

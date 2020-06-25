@@ -38,18 +38,25 @@ public class EntityToDtoImpl implements EntityToDto{
 	public List<OrderDto> convertOrders(List<OrderEntity> ordersEntity){
 		List<OrderDto> ordersDto = new ArrayList<OrderDto>();
 		for (OrderEntity orderEntity : ordersEntity) {
-			ordersDto.add(convertOrder(orderEntity));
+			ordersDto.add(convertOrder(orderEntity));  //B1
 		}
 		return ordersDto;
 	}
 	
 	@Override
 	public OrderDto convertOrder(OrderEntity orderEntity) {
+		List<ProductDto> pDtos = new ArrayList<>();
 		OrderDto orderDto = new OrderDto();
 		orderDto.setClient(convertClient(orderEntity.getClient()));
 		orderDto.setIdOrder(orderEntity.getIdOrder());
 		orderDto.setOrderDate(orderEntity.getOrderDate());
-		orderDto.setProducts(convertProducts(orderEntity.getProducts())); //Bucle
+		for (ProductEntity p : orderEntity.getProducts()) {//new
+			ProductDto pDto = new ProductDto();
+			pDto.setProductName(p.getProductName());
+			pDto.setIdProduct(p.getIdProduct());
+			pDtos.add(pDto);
+		}
+		orderDto.setProducts(pDtos);
 		orderDto.setShop(convertShop(orderEntity.getShop()));
 		return orderDto;
 	}
@@ -68,7 +75,7 @@ public class EntityToDtoImpl implements EntityToDto{
 	public List<ProductDto> convertProducts(List<ProductEntity> productsEntity){
 		List<ProductDto> productsDto = new ArrayList<ProductDto>();
 		for (ProductEntity productEntity : productsEntity) {
-			productsDto.add(convertProduct(productEntity));
+			productsDto.add(convertProduct(productEntity)); //B1
 		}
 		return productsDto;
 	}
@@ -80,18 +87,28 @@ public class EntityToDtoImpl implements EntityToDto{
 		productDto.setProductName(productEntity.getProductName());
 		productDto.setDescription(productEntity.getDescription());
 		productDto.setPrice(productEntity.getPrice());
-		productDto.setSupplier(convertSupplier(productEntity.getSupplier())); //TODO: Error
-		productDto.setOrders(convertOrders(productEntity.getOrders()));
+		SupplierDto s = new SupplierDto();
+		s.setName(productEntity.getSupplier().getName());
+		s.setIdSupplier(productEntity.getSupplier().getIdSupplier());//new
+		productDto.setSupplier(s); //TODO: Error
+		productDto.setOrders(convertOrders(productEntity.getOrders())); //B1
 		return productDto;
 	}
 	
 	@Override
 	public SupplierDto convertSupplier(SupplierEntity supplierEntity) {
+		List<ProductDto> pDtos = new ArrayList<>();
 		SupplierDto supplierDto = new SupplierDto();
 		supplierDto.setIdSupplier(supplierEntity.getIdSupplier());
 		supplierDto.setName(supplierEntity.getName());
 		supplierDto.setNumberProducts(supplierEntity.getProducts().size());
-		//supplierDto.setProducts(convertProducts(supplierEntity.getProducts()));
+		for (ProductEntity p : supplierEntity.getProducts()) {//new
+			ProductDto pDto = new ProductDto();
+			pDto.setProductName(p.getProductName());
+			pDto.setIdProduct(p.getIdProduct());
+			pDtos.add(pDto);
+		}
+		supplierDto.setProducts(pDtos);
 		return supplierDto;
 	}
 
