@@ -65,7 +65,7 @@ public class OrderController {
 	}
 
 	//GET
-	@GetMapping("/page/*/{orderName}")
+	@GetMapping("/page/*/{ref}")
 	public List<OrderDto> getOrderbyRef(@PathVariable String ref) {
 		return orderService.getOrdertbyRef(ref);
 	}

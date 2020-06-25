@@ -13,4 +13,6 @@ public class SupplierDto {
 	private String name;
 	
 	private List<ProductDto> products = new ArrayList<ProductDto>();
+	
+	private Integer numberProducts;
 }

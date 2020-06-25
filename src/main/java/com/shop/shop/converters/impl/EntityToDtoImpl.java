@@ -49,7 +49,7 @@ public class EntityToDtoImpl implements EntityToDto{
 		orderDto.setClient(convertClient(orderEntity.getClient()));
 		orderDto.setIdOrder(orderEntity.getIdOrder());
 		orderDto.setOrderDate(orderEntity.getOrderDate());
-		orderDto.setProducts(convertProducts(orderEntity.getProducts()));
+		orderDto.setProducts(convertProducts(orderEntity.getProducts())); //Bucle
 		orderDto.setShop(convertShop(orderEntity.getShop()));
 		return orderDto;
 	}
@@ -90,6 +90,7 @@ public class EntityToDtoImpl implements EntityToDto{
 		SupplierDto supplierDto = new SupplierDto();
 		supplierDto.setIdSupplier(supplierEntity.getIdSupplier());
 		supplierDto.setName(supplierEntity.getName());
+		supplierDto.setNumberProducts(supplierEntity.getProducts().size());
 		//supplierDto.setProducts(convertProducts(supplierEntity.getProducts()));
 		return supplierDto;
 	}

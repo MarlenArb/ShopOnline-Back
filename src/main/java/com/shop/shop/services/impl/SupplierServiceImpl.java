@@ -110,7 +110,7 @@ public class SupplierServiceImpl implements SupplierService{
 	@Override
 	@Transactional(readOnly = true)
 	public Page<SupplierDto> getSuppliersPerPage(Integer page) {
-		Page<SupplierEntity> paginator = supplierRepository.findAll(PageRequest.of(page, 5));
+		Page<SupplierEntity> paginator = supplierRepository.findAll(PageRequest.of(page, 10));
 		Page<SupplierDto> paginatorDto = paginator.map(new Function<SupplierEntity, SupplierDto>() {
 			@Override
 			public SupplierDto apply(SupplierEntity s) {

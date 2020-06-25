@@ -196,7 +196,7 @@ public class OrderServiceImpl implements OrderService {
 	@Override
 	@Transactional(readOnly = true)
 	public Page<OrderDto> getOrdersPerPage(Integer page) {
-		Page<OrderEntity> paginator = orderRepository.findAll(PageRequest.of(page, 5));
+		Page<OrderEntity> paginator = orderRepository.findAll(PageRequest.of(page, 10));
 		
 		Page<OrderDto> paginatorDto = paginator.map(new Function<OrderEntity, OrderDto>() {
 			@Override
@@ -216,6 +216,12 @@ public class OrderServiceImpl implements OrderService {
 		for (OrderEntity o : allOrders) {
 			
 			if (o.getOrderDate().toLowerCase().indexOf(ref.toLowerCase()) != -1)
+				matchingOrders.add(etd.convertOrder(o));
+			
+			if (o.getShop().getShopName().toLowerCase().indexOf(ref.toLowerCase()) != -1)
+				matchingOrders.add(etd.convertOrder(o));
+			
+			if (o.getClient().getClientName().toLowerCase().indexOf(ref.toLowerCase()) != -1)
 				matchingOrders.add(etd.convertOrder(o));
 			
 		}

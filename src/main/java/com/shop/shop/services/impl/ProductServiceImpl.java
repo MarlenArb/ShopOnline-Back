@@ -68,8 +68,8 @@ public class ProductServiceImpl implements ProductService{
 		});
 		
 		//Le añado el producto al proveedor
-		supplier.getProducts().add(dte.convertProduct(productDto));
-		supplierRepository.save(supplier);
+		//supplier.getProducts().add(dte.convertProduct(productDto));
+		//supplierRepository.save(supplier);
 		//Guardo el producto en la base de datos
 		productRepository.save(dte.convertProduct(productDto));
 		
@@ -135,7 +135,7 @@ public class ProductServiceImpl implements ProductService{
 
 	@Override
 	public Page<ProductDto> getProductsPerPage(Integer page) {		
-	Page<ProductEntity> paginator = productRepository.findAll(PageRequest.of(page, 5));
+	Page<ProductEntity> paginator = productRepository.findAll(PageRequest.of(page, 10));
 	Page<ProductDto> paginatorDto = paginator.map(new Function<ProductEntity, ProductDto>() {
 		@Override
 		public ProductDto apply(ProductEntity p) {

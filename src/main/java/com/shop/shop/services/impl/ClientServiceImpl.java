@@ -104,7 +104,7 @@ public class ClientServiceImpl implements ClientService{
 	@Override
 	@Transactional(readOnly = true)
 	public Page<ClientDto> getClientsPerPage(Integer page) {
-		Page<ClientEntity> paginator = clientRepository.findAll(PageRequest.of(page, 5));
+		Page<ClientEntity> paginator = clientRepository.findAll(PageRequest.of(page, 10));
 		
 		Page<ClientDto> paginatorDto = paginator.map(new Function<ClientEntity, ClientDto>() {
 			@Override

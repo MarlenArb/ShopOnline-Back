@@ -110,7 +110,7 @@ public class ShopServiceImpl implements ShopService{
 	@Transactional(readOnly = true)
 	public Page<ShopDto> getShopsPerPage(Integer page) {
 
-		Page<ShopEntity> paginator = shopRepository.findAll(PageRequest.of(page, 5));
+		Page<ShopEntity> paginator = shopRepository.findAll(PageRequest.of(page, 10));
 		
 		Page<ShopDto> paginatorDto = paginator.map(new Function<ShopEntity, ShopDto>() {
 			@Override
