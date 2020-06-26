@@ -110,38 +110,12 @@ public class OrderServiceImpl implements OrderService {
 		OrderEntity order = orderRepository.findById(id).orElseThrow(() -> {
 			logger.warn(DataErrorMessages.ORDER_NO_CONTENT);
 			throw new OrderNoContentException(DataErrorMessages.ORDER_NO_CONTENT);
-		});
+		});		
+
+				for (ProductEntity product : order.getProducts()) {
+					product.getOrders().remove(order);
+			}
 		
-		//Borramos el pedido en el cliente
-		ClientEntity c = clientRepository.findById(order.getClient().getIdClient()).orElseThrow(() -> {
-			logger.warn(DataErrorMessages.CLIENT_NO_CONTENT);
-			throw new ClientNoContentException(DataErrorMessages.CLIENT_NO_CONTENT);
-		});
-		
-		c.getOrders().remove(order);
-		//clientRepository.save(c);
-		
-		//Borramos el pedido de la tienda
-		ShopEntity s = shopRepository.findById(order.getShop().getIdShop()).orElseThrow(() -> {
-			logger.warn(DataErrorMessages.SHOP_NO_CONTENT);
-			throw new ShopNoContentException(DataErrorMessages.SHOP_NO_CONTENT);
-		});
-		
-		s.getOrders().remove(order);
-		//shopRepository.save(s);
-		
-		//Borramos el pedido de los productos asociadosa él
-		for (ProductEntity product : order.getProducts()) {
-			productRepository.findById(product.getIdProduct()).orElseThrow(() -> {
-				logger.warn(DataErrorMessages.PRODUCT_NO_CONTENT);
-				throw new ProductNoContentException(DataErrorMessages.PRODUCT_NO_CONTENT);
-			});
-			
-			product.getOrders().remove(order);
-			productRepository.save(product); //TODO: no se si va aqui
-		}
-		
-		//Borramos el pedido en la bbdd
 		orderRepository.delete(order);
 		
 	}

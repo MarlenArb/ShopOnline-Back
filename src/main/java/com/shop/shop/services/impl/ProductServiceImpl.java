@@ -17,10 +17,12 @@ import com.shop.shop.dtos.OrderDto;
 import com.shop.shop.dtos.ProductDto;
 import com.shop.shop.entities.OrderEntity;
 import com.shop.shop.entities.ProductEntity;
+import com.shop.shop.entities.ShopEntity;
 import com.shop.shop.entities.SupplierEntity;
 import com.shop.shop.exceptions.DataErrorMessages;
 import com.shop.shop.exceptions.OrderNoContentException;
 import com.shop.shop.exceptions.ProductNoContentException;
+import com.shop.shop.exceptions.ShopNoContentException;
 import com.shop.shop.exceptions.SupplierNoContentException;
 import com.shop.shop.repositories.ClientRepositoy;
 import com.shop.shop.repositories.OrderRepository;
@@ -97,6 +99,7 @@ public class ProductServiceImpl implements ProductService{
 			throw new ProductNoContentException(DataErrorMessages.PRODUCT_NO_CONTENT);
 		});
 		
+		
 		SupplierEntity oldSupplier = supplierRepository.findById(p.getSupplier().getIdSupplier()).orElseThrow(() -> {
 			logger.warn(DataErrorMessages.SUPPLIER_NO_CONTENT);
 			throw new SupplierNoContentException(DataErrorMessages.SUPPLIER_NO_CONTENT);
@@ -110,11 +113,9 @@ public class ProductServiceImpl implements ProductService{
 		}
 		p.getOrders().clear();
 		
-		//productRepository.save(p);
 		productRepository.delete(p);
 	}
 
-	
 	@Override
 	public List<ProductDto> getProducts() {
 		List<ProductEntity> productsEntity = productRepository.findAll();

@@ -16,6 +16,7 @@ import com.shop.shop.converters.DtoToEntity;
 import com.shop.shop.converters.EntityToDto;
 import com.shop.shop.dtos.ShopDto;
 import com.shop.shop.entities.OrderEntity;
+import com.shop.shop.entities.ProductEntity;
 import com.shop.shop.entities.ShopEntity;
 import com.shop.shop.exceptions.ClientNoContentException;
 import com.shop.shop.exceptions.DataErrorMessages;
@@ -72,9 +73,14 @@ public class ShopServiceImpl implements ShopService{
 			throw new ShopNoContentException(DataErrorMessages.SHOP_NO_CONTENT);
 		});
 		
-		//Borramos los pedidos asociados a esta tienda
-		for(OrderEntity o: s.getOrders()) {
-			orderRepository.delete(o); //TODO: Quizas funcione mejor llamando a la funcion delete del orderServiceImpl
+		for (OrderEntity o : s.getOrders()) {
+			OrderEntity order = orderRepository.findById(o.getIdOrder()).orElseThrow(() -> {
+				logger.warn(DataErrorMessages.ORDER_NO_CONTENT);
+				throw new OrderNoContentException(DataErrorMessages.ORDER_NO_CONTENT);
+			});
+				for (ProductEntity product : order.getProducts()) {
+					product.getOrders().remove(order);
+			}
 		}
 		
 		shopRepository.delete(s);

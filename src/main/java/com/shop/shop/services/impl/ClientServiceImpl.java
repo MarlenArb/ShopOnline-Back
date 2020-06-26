@@ -17,10 +17,14 @@ import com.shop.shop.converters.EntityToDto;
 import com.shop.shop.dtos.ClientDto;
 import com.shop.shop.entities.ClientEntity;
 import com.shop.shop.entities.OrderEntity;
+import com.shop.shop.entities.ProductEntity;
 import com.shop.shop.exceptions.ClientNoContentException;
 import com.shop.shop.exceptions.DataErrorMessages;
+import com.shop.shop.exceptions.OrderNoContentException;
+import com.shop.shop.exceptions.ProductNoContentException;
 import com.shop.shop.repositories.ClientRepositoy;
 import com.shop.shop.repositories.OrderRepository;
+import com.shop.shop.repositories.ProductRepository;
 import com.shop.shop.services.ClientService;
 
 @Service
@@ -39,6 +43,9 @@ public class ClientServiceImpl implements ClientService{
 	
 	@Autowired
 	OrderRepository orderRepository;
+	
+	@Autowired
+	ProductRepository productRepository;
 	
 	@Autowired
 	OrderServiceImpl orderService;
@@ -65,7 +72,22 @@ public class ClientServiceImpl implements ClientService{
 			throw new ClientNoContentException(DataErrorMessages.CLIENT_NO_CONTENT);
 		});
 		
-		clientRepository.save(c);
+//		for (OrderEntity o : c.getOrders()) {
+//			orderService.deleteOrder(o.getIdOrder());
+//		}
+//		c.getOrders().clear();
+		for (OrderEntity o : c.getOrders()) {
+			OrderEntity order = orderRepository.findById(o.getIdOrder()).orElseThrow(() -> {
+				logger.warn(DataErrorMessages.ORDER_NO_CONTENT);
+				throw new OrderNoContentException(DataErrorMessages.ORDER_NO_CONTENT);
+			});
+				for (ProductEntity product : order.getProducts()) {
+					product.getOrders().remove(order);
+			}
+		}
+		
+
+
 		clientRepository.delete(c);
 	}
 
