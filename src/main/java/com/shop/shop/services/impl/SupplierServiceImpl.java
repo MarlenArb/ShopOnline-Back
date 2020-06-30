@@ -15,12 +15,9 @@ import org.springframework.transaction.annotation.Transactional;
 import com.shop.shop.converters.DtoToEntity;
 import com.shop.shop.converters.EntityToDto;
 import com.shop.shop.dtos.SupplierDto;
-import com.shop.shop.entities.OrderEntity;
 import com.shop.shop.entities.ProductEntity;
 import com.shop.shop.entities.SupplierEntity;
 import com.shop.shop.exceptions.DataErrorMessages;
-import com.shop.shop.exceptions.OrderNoContentException;
-import com.shop.shop.exceptions.ProductNoContentException;
 import com.shop.shop.exceptions.SupplierNoContentException;
 import com.shop.shop.repositories.OrderRepository;
 import com.shop.shop.repositories.ProductRepository;
@@ -71,21 +68,30 @@ public class SupplierServiceImpl implements SupplierService{
 
 	@Override
 	@Transactional
-	public void deleteSupplier(Long id) {
+	public void deleteSupplier(Long id) { //TODO: Falla
 		SupplierEntity s = supplierRepository.findById(id).orElseThrow(() -> {
 			logger.warn(DataErrorMessages.SUPPLIER_NO_CONTENT);
 			throw new SupplierNoContentException(DataErrorMessages.SUPPLIER_NO_CONTENT);
 		});
 		
-		for(ProductEntity p: s.getProducts()) {
-			productService.deleteProduct(p.getIdProduct());
+		List<ProductEntity> productsEntity = new ArrayList<>();
+		productsEntity = s.getProducts();
+		System.out.println("--------------------------------------------------------------------------------------------------------");
+		System.out.println(productsEntity.size());
+		System.out.println(productsEntity);
+//		for (ProductEntity p : productsEntity) {
+//			productService.deleteProduct(p.getIdProduct());
+//		}
+		
+//		for(ProductEntity p: s.getProducts()) {
+////			productService.deleteProduct(p.getIdProduct());
 //			for (OrderEntity o : p.getOrders()) {
 //				o.getProducts().remove(p);
 //			}
-			//s.getProducts().remove(p);
-		}
+//			s.getProducts().remove(p);
+//		}
 
-		supplierRepository.delete(s);
+		//supplierRepository.delete(s);
 	}
 	
 

@@ -21,7 +21,6 @@ import com.shop.shop.entities.ProductEntity;
 import com.shop.shop.exceptions.ClientNoContentException;
 import com.shop.shop.exceptions.DataErrorMessages;
 import com.shop.shop.exceptions.OrderNoContentException;
-import com.shop.shop.exceptions.ProductNoContentException;
 import com.shop.shop.repositories.ClientRepositoy;
 import com.shop.shop.repositories.OrderRepository;
 import com.shop.shop.repositories.ProductRepository;
