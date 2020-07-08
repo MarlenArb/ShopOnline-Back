@@ -66,6 +66,7 @@ public class EntityToDtoImpl implements EntityToDto{
 		ShopDto shopDto = new ShopDto();
 		shopDto.setIdShop(shopEntity.getIdShop());
 		shopDto.setShopName(shopEntity.getShopName());
+		shopDto.setColor(shopEntity.getColor());
 		//shopDto.setOrders(convertOrders(shopEntity.getOrders()));
 		shopDto.setCIF(shopEntity.getCIF());
 		return shopDto;
@@ -87,6 +88,7 @@ public class EntityToDtoImpl implements EntityToDto{
 		productDto.setProductName(productEntity.getProductName());
 		productDto.setDescription(productEntity.getDescription());
 		productDto.setPrice(productEntity.getPrice());
+		productDto.setColor(productEntity.getColor());
 		SupplierDto s = new SupplierDto();
 		s.setName(productEntity.getSupplier().getName());
 		s.setIdSupplier(productEntity.getSupplier().getIdSupplier());//new

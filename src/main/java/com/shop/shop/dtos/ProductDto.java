@@ -21,6 +21,8 @@ public class ProductDto {
 
 	private Integer numberOrders;
 	
+	private String color;
+	
 	private SupplierDto supplier = new SupplierDto();
 	
 	private List<OrderDto> orders = new ArrayList<OrderDto>();

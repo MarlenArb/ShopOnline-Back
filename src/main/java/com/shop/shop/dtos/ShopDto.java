@@ -15,5 +15,7 @@ public class ShopDto {
 	
 	private String CIF;
 	
+	private String color;
+	
 	private List<OrderDto> orders = new ArrayList<OrderDto>();
 }

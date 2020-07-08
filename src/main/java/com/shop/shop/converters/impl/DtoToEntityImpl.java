@@ -66,6 +66,7 @@ public class DtoToEntityImpl implements DtoToEntity{
 		shopEntity.setOrders(convertOrders(shopDto.getOrders()));
 		shopEntity.setShopName(shopDto.getShopName());
 		shopEntity.setCIF(shopDto.getCIF());
+		shopEntity.setColor(shopDto.getColor());
 		return shopEntity;
 	}
 	
@@ -89,6 +90,7 @@ public class DtoToEntityImpl implements DtoToEntity{
 		productEntity.setPrice(productDto.getPrice());
 		productEntity.setOrders(convertOrders(productDto.getOrders()));
 		productEntity.setSupplier(convertSupplier(productDto.getSupplier()));
+		productEntity.setColor(productDto.getColor());
 		return productEntity;
 	}
 	

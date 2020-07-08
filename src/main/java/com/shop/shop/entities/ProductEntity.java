@@ -34,6 +34,9 @@ public class ProductEntity {
 	
 	@Column(name = "DESCRIPCION")
 	private String description;
+	
+	@Column(name = "COLOR")
+	private String color;;
 
 	@ManyToOne
 	private SupplierEntity supplier = new SupplierEntity();

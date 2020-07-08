@@ -30,6 +30,9 @@ public class ShopEntity {
 	@Column(name = "CIF")
 	private String CIF;
 	
+	@Column(name = "COLOR")
+	private String color;
+	
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "shop")
 	private List<OrderEntity> orders = new ArrayList<OrderEntity>();
 
