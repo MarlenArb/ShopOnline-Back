@@ -105,7 +105,7 @@ public class ShopServiceImpl implements ShopService{
 		
 		s.setShopName(shop.getShopName());
 		s.setCIF(shop.getCIF());
-		
+		s.setColor(shop.getColor());
 		
 		//TODO: No esta implementado la modificacion de pedidos desde la misma tienda, sino desde pedidos
 		shopRepository.save(s);

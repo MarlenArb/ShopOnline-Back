@@ -133,6 +133,7 @@ public class ProductServiceImpl implements ProductService{
 		p.setProductName(productDto.getProductName());
 		p.setDescription(productDto.getDescription());
 		p.setPrice(productDto.getPrice());
+		p.setColor(productDto.getColor());
 		
 		SupplierEntity oldSupplier = supplierRepository.findById(p.getSupplier().getIdSupplier()).orElseThrow(() -> {
 			logger.warn(DataErrorMessages.SUPPLIER_NO_CONTENT);
