@@ -16,7 +16,11 @@ public class ProductDto {
 	private String productName;
 	
 	private String description;
+	
+	private boolean isInOrder = false;
 
+	private Integer numberOrders;
+	
 	private SupplierDto supplier = new SupplierDto();
 	
 	private List<OrderDto> orders = new ArrayList<OrderDto>();

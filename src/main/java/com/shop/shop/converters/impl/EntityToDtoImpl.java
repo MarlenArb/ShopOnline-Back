@@ -92,6 +92,12 @@ public class EntityToDtoImpl implements EntityToDto{
 		s.setIdSupplier(productEntity.getSupplier().getIdSupplier());//new
 		productDto.setSupplier(s); //TODO: Error
 		productDto.setOrders(convertOrders(productEntity.getOrders())); //B1
+		if(productEntity.getOrders().size() > 0) {
+			System.out.println(productDto.getProductName());
+			productDto.setInOrder(true);
+			productDto.setNumberOrders(productEntity.getOrders().size());
+			System.out.println("tiene pedidos: " + productDto.isInOrder() + "  cuantos:  " + productDto.getNumberOrders());
+		}
 		return productDto;
 	}
 	
