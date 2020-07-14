@@ -29,7 +29,7 @@ public class DtoToEntityImpl implements DtoToEntity{
 		clientEntity.setClientName(clientDto.getClientName());
 		clientEntity.setDirection(clientDto.getDirection());
 		clientEntity.setAge(clientDto.getAge());
-		clientEntity.setGender(clientDto.getGender().toString());
+		clientEntity.setGender("MUJER");
 		clientEntity.setOrders(convertOrders(clientDto.getOrders()));
 		return clientEntity;
 	}

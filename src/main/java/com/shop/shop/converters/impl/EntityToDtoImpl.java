@@ -69,6 +69,13 @@ public class EntityToDtoImpl implements EntityToDto{
 		shopDto.setColor(shopEntity.getColor());
 		//shopDto.setOrders(convertOrders(shopEntity.getOrders()));
 		shopDto.setCIF(shopEntity.getCIF());
+		List <OrderDto> ordersDto = new ArrayList<OrderDto>();
+		for (OrderEntity o : shopEntity.getOrders()) {
+			OrderDto orderDto = new OrderDto();
+			orderDto.setIdOrder(o.getIdOrder());
+			ordersDto.add(orderDto);
+		}
+		shopDto.setOrders(ordersDto);
 		return shopDto;
 	}
 	
