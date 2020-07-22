@@ -9,35 +9,22 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 import lombok.Data;
 
 @Entity
-@Table(name = "CLIENTE")
+@Table(name = "USER_TABLE")
 @Data
-public class ClientEntity{
+public class UserEntity {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO, generator = "SEQ_ID_SHOPS")
 	@Column(name = "ID")
-	private Long idClient;
+	private Long idUser;
 	
-	@Column(name = "NOMBRE")
-	private String clientName;
-	
-	@Column(name = "DIRECCION")
-	private String direction;
-	
-	@Column(name = "EDAD")
-	private Integer age;
-	
-	@Column(name = "GENERO")
-	private String gender;
-	
-	
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "client")
-	private List<OrderEntity> orders = new ArrayList<OrderEntity>();
+	@ManyToMany(cascade = CascadeType.PERSIST)
+	private List<RolEntity> roles = new ArrayList<>();
 
 }
