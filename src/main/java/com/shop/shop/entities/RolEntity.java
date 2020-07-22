@@ -30,5 +30,5 @@ public class RolEntity {
 
 	//N roles M clientes 
 	@ManyToMany(cascade = CascadeType.PERSIST, mappedBy = "roles")
-	private List<UserEntity> users = new ArrayList<UserEntity>();
+	private List<ClientEntity> clients = new ArrayList<ClientEntity>();
 }

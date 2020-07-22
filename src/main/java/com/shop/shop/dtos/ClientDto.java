@@ -21,4 +21,7 @@ public class ClientDto {
 	private Enums.gender gender;
 	
 	private List<OrderDto> orders = new ArrayList<OrderDto>();
+	
+	private List<Enums.rol> roles = new ArrayList<>();
+
 }

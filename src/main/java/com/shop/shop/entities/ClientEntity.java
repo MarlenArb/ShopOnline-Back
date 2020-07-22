@@ -9,6 +9,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -36,8 +37,14 @@ public class ClientEntity{
 	@Column(name = "GENERO")
 	private String gender;
 	
+	@Column(name = "USUARIO")
+	private String idUser;
+	
 	
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "client")
 	private List<OrderEntity> orders = new ArrayList<OrderEntity>();
 
+	@ManyToMany(cascade = CascadeType.PERSIST)
+	private List<RolEntity> roles = new ArrayList<>();
+	
 }
